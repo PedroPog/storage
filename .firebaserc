@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "pos-sales-11f0c"
+  },
+  "targets": {
+    "pos-sales-11f0c": {
+      "hosting": {
+        "app": [
+          "stotage-firebase-26"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

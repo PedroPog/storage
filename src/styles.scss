@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: #f5f7fb;
+  color: #2d3436;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}

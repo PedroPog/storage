@@ -30,7 +30,7 @@ export class AuthFireService {
 
       return userCredential.user;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw new Error(this.handleError(error));
     }
   }
 
@@ -39,7 +39,7 @@ export class AuthFireService {
       const res = await signInWithEmailAndPassword(this.auth, email, pass);
       return res.user;
     } catch (error: any) {
-      throw this.handleError(error);
+      throw new Error(this.handleError(error));
     }
   }
 
@@ -47,14 +47,25 @@ export class AuthFireService {
     return signOut(this.auth);
   }
 
-  private handleError(error: any) {
-    switch (error.code) {
-      case 'auth/email-already-in-use': return 'Este email já está cadastrado.';
-      case 'auth/invalid-email': return 'Email inválido.';
-      case 'auth/weak-password': return 'A senha deve ter no mínimo 6 caracteres.';
-      case 'auth/user-not-found': case 'auth/wrong-password':
-        return 'Usuário ou senha incorretos.';
-      default: return 'Ocorreu um erro inesperado.';
+  private handleError(error: any): string {
+    switch (error?.code) {
+      case 'auth/email-already-in-use':
+        return 'Este e-mail já está cadastrado.';
+      case 'auth/invalid-email':
+        return 'Formato de e-mail inválido.';
+      case 'auth/weak-password':
+        return 'A senha deve ter no mínimo 6 caracteres.';
+      case 'auth/user-not-found':
+      case 'auth/wrong-password':
+      case 'auth/invalid-credential':
+      case 'auth/invalid-login-credentials':
+        return 'E-mail ou senha incorretos.';
+      case 'auth/too-many-requests':
+        return 'Muitas tentativas sem sucesso. Tente novamente mais tarde.';
+      case 'auth/network-request-failed':
+        return 'Falha na conexão de rede. Verifique sua internet.';
+      default:
+        return error?.message || 'Ocorreu um erro inesperado ao autenticar.';
     }
   }
 }

@@ -1,8 +1,38 @@
 <div class="container">
+  <div class="user-bar">
+    <div class="user-profile">
+      <div class="user-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <div class="user-details">
+        <span class="user-greeting">Conectado como</span>
+        <strong class="user-name">
+          @if (user$ | async; as user) {
+            {{ user.displayName || user.email }}
+          } @else {
+            Visitante
+          }
+        </strong>
+      </div>
+    </div>
+    <button class="btn-logout" (click)="logout()" title="Encerrar sessão">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+        <polyline points="16 17 21 12 16 7"></polyline>
+        <line x1="21" y1="12" x2="9" y2="12"></line>
+      </svg>
+      <span>Sair</span>
+    </button>
+  </div>
+
   <header>
     <h1>Meus Hábitos</h1>
-    <p>Mantenha a constância!</p>
+    <p>Mantenha a constância e acompanhe seu progresso!</p>
   </header>
+
 
   <div class="input-group">
     <input [(ngModel)]="newHabitName" placeholder="Ex: Ler 10 páginas..." (keyup.enter)="addHabit()">

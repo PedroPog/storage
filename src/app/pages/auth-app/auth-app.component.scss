@@ -1,0 +1,47 @@
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #0984e3 0%, #6c5ce7 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 36px 32px;
+  overflow: hidden;
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 28px;
+
+  .brand-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 14px;
+    background: #eef2ff;
+    color: #0984e3;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 6px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #636e72;
+  }
+}

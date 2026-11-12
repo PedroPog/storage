@@ -1,25 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Habit } from '../../Model/habit.interface';
+import { AuthFireService } from '../../../../firebase/service/auth-fire.service';
 
 @Component({
   selector: 'app-home-habit',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './home-habit.component.html',
   styleUrl: './home-habit.component.scss'
 })
-export class HomeHabitComponent implements OnInit{
+export class HomeHabitComponent implements OnInit {
+  private authService = inject(AuthFireService);
+  private router = inject(Router);
+
+  user$ = this.authService.user$;
   habits: Habit[] = [];
   newHabitName: string = '';
 
-  constructor(){}
-
   ngOnInit() {
     const saved = localStorage.getItem('habits');
-    if (saved) this.habits = JSON.parse(saved);
+    if (saved) {
+      try {
+        this.habits = JSON.parse(saved);
+      } catch {
+        this.habits = [];
+      }
+    }
   }
+
+  async logout(): Promise<void> {
+    try {
+      await this.authService.logout();
+      await this.router.navigate(['/v1/login']);
+    } catch (error) {
+      console.error('Erro ao deslogar:', error);
+    }
+  }
+
 
   addHabit() {
     if (this.newHabitName.trim()) {
